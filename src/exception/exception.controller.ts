@@ -1,12 +1,17 @@
-import { Controller, Get, HttpException, Param, ParseIntPipe, UseFilters } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  UseFilters,
+} from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/filter/http-exception/http-exception.filter';
 
 @Controller('exception')
 @UseFilters(HttpExceptionFilter)
 export class ExceptionController {
-    @Get('hello/:id')
-    getHello(@Param('id', ParseIntPipe)id:number){
-        return { message:`your id is: ${id}`}
-
-    }
+  @Get('hello/:id')
+  getHello(@Param('id', ParseIntPipe) id: number) {
+    return { message: `your id is: ${id}` };
+  }
 }

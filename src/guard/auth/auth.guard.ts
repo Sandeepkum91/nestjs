@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  canActivate(// excute before the controller to check what have come
+  canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request= context.switchToHttp().getRequest();
-    const authHeader = request.headers['authorization'];
-    
+    const req = context.switchToHttp().getRequest<Request>();
+    const authHeader = (req as unknown as Record<string, unknown>).headers?.[
+      'authorization'
+    ] as string | undefined;
+
     return authHeader === 'Bearer my secret-token';
   }
 }

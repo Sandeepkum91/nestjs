@@ -6,20 +6,22 @@ import { Role } from './roles.enum';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector:Reflector ){} // reflector are used  to get meta data for the decorator form enum  
-  canActivate( // provide this call
+  constructor(private reflector: Reflector) {} // reflector are used  to get meta data for the decorator form enum
+  canActivate(
+    // provide this call
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const requiredRoles= this.reflector.getAllAndOverride<Role[]>( // getoveride get all the values 
-      ROLES_KEY,[
-        context.getHandler(), // get the handler meta data
-        context.getClass(), // get clss y andrar ki meta data fined krat hai 
-      ]
-    )
-    if(!requiredRoles){
+    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
+      // getoveride get all the values
+      context.getHandler(), // get the handler meta data
+      context.getClass(), // get clss y andrar ki meta data fined krat hai
+    ]);
+    if (!requiredRoles) {
       return true;
     }
-    const request = context.switchToHttp().getRequest<{headers:Record<string, string>}>()
+    const request = context
+      .switchToHttp()
+      .getRequest<{ headers: Record<string, string> }>();
     const userRole = request.headers['x-user-role'] as Role;
 
     return requiredRoles.includes(userRole);

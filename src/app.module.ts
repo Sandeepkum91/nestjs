@@ -17,7 +17,15 @@ import { DatabaseController } from './database/database.controller';
 
 @Module({
   imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule],
-  controllers: [AppController, UserController, ProductController, MynameController, UserRolesController, ExceptionController, DatabaseController],
+  controllers: [
+    AppController,
+    UserController,
+    ProductController,
+    MynameController,
+    UserRolesController,
+    ExceptionController,
+    DatabaseController,
+  ],
   providers: [AppService, ProductService, DatabaseService],
 })
 export class AppModule implements NestModule {

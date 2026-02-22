@@ -4,18 +4,15 @@ import { CreateCustomerDto } from './dto/create-customer.dto';
 
 @Controller('customer')
 export class CustomerController {
+  constructor(private readonly customerService: CustomerService) {}
 
-    constructor(private readonly customerService:CustomerService){}
+  @Get()
+  getCustomer() {
+    return this.customerService.getAllCustomer();
+  }
 
-    @Get()
-    getCustomer(){
-        return this.customerService.getAllCustomer();
-    }
-
-    @Post()
-    addCustomer(@Body() createCustomerDto: CreateCustomerDto){
-        return this.customerService.addCustomer(createCustomerDto);
-        
-    }
-    
+  @Post()
+  addCustomer(@Body() createCustomerDto: CreateCustomerDto) {
+    return this.customerService.addCustomer(createCustomerDto);
+  }
 }
