@@ -7,7 +7,7 @@ import { Role } from './roles.enum';
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector:Reflector ){} // reflector are used  to get meta data for the decorator form enum  
-  canActivate(
+  canActivate( // provide this call
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const requiredRoles= this.reflector.getAllAndOverride<Role[]>( // getoveride get all the values 
